@@ -1,0 +1,55 @@
+# =============================================================================
+# Prompt Optimizer Skill
+# =============================================================================
+# Optimizes user prompts for better LLM output quality.
+#
+# Usage:
+#   curl -X POST http://127.0.0.1:8000/api/skills/prompt_optimizer/run \
+#        -H "Content-Type: application/json" \
+#        -d '{"input": "Tell me about AI"}'
+# =============================================================================
+
+name: prompt_optimizer
+description: >
+  Takes a user prompt and optimizes it for better LLM output. Adds
+  clarity, structure, and best-practice prompting techniques.
+
+category: prompt_engineering
+model_provider: mock
+model_name: mock-model
+
+input_fields:
+  - name: input
+    type: string
+    description: The original user prompt to optimize
+  - name: target_model
+    type: string
+    description: Target LLM model for optimization context (optional)
+
+output_format:
+  original_prompt: string
+  optimized_prompt: string
+  improvements: list
+  estimated_quality_improvement: string
+
+prompt_template: >
+  You are a prompt engineering expert. Take the following user prompt and
+  optimize it for better LLM output. Apply best practices:
+  - Be specific and clear about the desired output format
+  - Include relevant context
+  - Set the right tone and role
+  - Add constraints where helpful
+
+  Output must be in valid JSON format with these keys:
+  - original_prompt: The original user prompt
+  - optimized_prompt: The improved prompt
+  - improvements: A list of specific improvements made
+  - estimated_quality_improvement: Estimated quality gain as a percentage string (e.g., "+40%")
+
+  User prompt to optimize:
+  {input}
+
+examples:
+  - input: "Tell me about AI"
+    output: >
+      {"original_prompt": "Tell me about AI", "optimized_prompt": "...", "improvements": ["Added specificity", "Requested structured output"], "estimated_quality_improvement": "+40%"}

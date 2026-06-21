@@ -1,0 +1,31 @@
+[Desktop Entry]
+Version=1.0
+Name=AgentFlow Launcher
+Name[zh_CN]=AgentFlow 启动器
+Comment=A cross-platform launcher for building and deploying LLM-powered agents, workflows, and skills
+Comment[zh_CN]=大模型 Agent / Workflow / Skill 一体化构建与部署平台
+Exec=/path/to/AgentFlow-Launcher/desktop/linux/start_agentflow.sh
+Icon=/path/to/AgentFlow-Launcher/docs/images/icon.png
+Terminal=true
+Type=Application
+Categories=Development;AI;Utility;
+Keywords=AI;LLM;Agent;Workflow;Skill;GPT;
+
+# =============================================================================
+# Installation Instructions
+# =============================================================================
+# 1. Edit this file and replace /path/to/AgentFlow-Launcher with your actual
+#    project path in both Exec= and Icon= lines.
+#
+# 2. Copy to local applications directory:
+#    cp agentflow-launcher.desktop ~/.local/share/applications/
+#
+# 3. Or copy to system-wide applications:
+#    sudo cp agentflow-launcher.desktop /usr/share/applications/
+#
+# 4. The launcher will appear in your application menu / launcher.
+#    You can also drag it to your desktop or panel for quick access.
+#
+# 5. Make sure the start script is executable:
+#    chmod +x desktop/linux/start_agentflow.sh
+# =============================================================================

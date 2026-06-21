@@ -1,0 +1,70 @@
+# =============================================================================
+# Demo Research Agent
+# =============================================================================
+# A demonstration agent that researches a given topic and produces a structured
+# report including background, key points, action steps, risks, and next steps.
+#
+# Usage:
+#   python scripts/run_demo.py
+#   curl -X POST http://127.0.0.1:8000/api/agents/demo_research_agent/run \
+#        -H "Content-Type: application/json" \
+#        -d '{"input": "Large Language Model Applications"}'
+# =============================================================================
+
+name: demo_research_agent
+description: >
+  Research assistant agent. Given a topic, produces a structured report
+  with background introduction, key points, actionable steps, risk
+  warnings, and next-step suggestions.
+
+model_provider: mock        # Change to openai / deepseek / qwen / ollama
+model_name: mock-model      # Change to gpt-4o / deepseek-chat / qwen-plus / llama3
+
+system_prompt: >
+  You are a professional research assistant. When the user provides a topic,
+  you must produce a structured output in JSON format with the following
+  sections:
+
+  1. background - A concise background introduction to the topic
+  2. key_points - A list of 3-5 core points about the topic
+  3. action_steps - A list of 3-5 concrete steps the user can take
+  4. risks - A list of 2-4 potential risks or caveats
+  5. next_steps - A list of 2-4 suggestions for further exploration
+
+  Always be objective, informative, and practical. Cite general knowledge
+  rather than fabricating specific sources.
+
+temperature: 0.7
+max_tokens: 2048
+
+tools:
+  - name: web_search
+    description: Search the web for current information on a topic
+    parameters:
+      query:
+        type: string
+        description: The search query
+
+  - name: calculator
+    description: Perform mathematical calculations
+    parameters:
+      expression:
+        type: string
+        description: The mathematical expression to evaluate
+
+memory:
+  type: buffer
+  max_tokens: 4096
+
+input_schema:
+  fields:
+    topic: string
+    language: string
+
+output_schema:
+  fields:
+    background: string
+    key_points: list
+    action_steps: list
+    risks: list
+    next_steps: list

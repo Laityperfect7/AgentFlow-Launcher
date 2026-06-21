@@ -1,0 +1,48 @@
+# =============================================================================
+# Code Explainer Skill
+# =============================================================================
+# Explains code snippets line-by-line and provides improvement suggestions.
+#
+# Usage:
+#   curl -X POST http://127.0.0.1:8000/api/skills/code_explainer/run \
+#        -H "Content-Type: application/json" \
+#        -d '{"input": "def foo(): pass"}'
+# =============================================================================
+
+name: code_explainer
+description: >
+  Analyze and explain code snippets. Provides an overview, line-by-line
+  breakdown, and actionable improvement suggestions.
+
+category: code_assistance
+model_provider: mock
+model_name: mock-model
+
+input_fields:
+  - name: input
+    type: string
+    description: The code snippet to explain
+  - name: language
+    type: string
+    description: Programming language of the code (optional, auto-detected)
+
+output_format:
+  overview: string
+  line_by_line: list
+  suggestions: list
+
+prompt_template: >
+  You are an expert code reviewer and explainer. Analyze the following
+  code snippet and explain it clearly. Output must be in valid JSON format
+  with these keys:
+  - overview: A high-level summary of what the code does
+  - line_by_line: A list of objects, each with "line" (number), "code" (snippet), and "explanation" (text)
+  - suggestions: A list of improvement suggestions (performance, readability, best practices)
+
+  Code to explain:
+  ```{input}```
+
+examples:
+  - input: "def add(a, b):\n    return a + b"
+    output: >
+      {"overview": "A simple function that adds two numbers.", "line_by_line": [...], "suggestions": ["Add type hints"]}

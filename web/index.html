@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentFlow-Launcher | Web Console</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background gradient overlay -->
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="url(#logo-grad)"/>
+                    <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#6366f1"/>
+                            <stop offset="100%" stop-color="#a855f7"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="logo-text">
+                    <h1>AgentFlow<span class="accent">-Launcher</span></h1>
+                    <p class="subtitle">Agent / Workflow / Skill 一体化控制台</p>
+                </div>
+            </div>
+            <div class="status-badge" id="statusBadge">
+                <span class="status-dot"></span>
+                <span id="statusText">检测中...</span>
+            </div>
+        </header>
+
+        <!-- Main card -->
+        <main class="main-card">
+            <!-- Type selector -->
+            <div class="type-selector">
+                <button class="type-btn active" data-type="agent">
+                    <svg class="type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-8 8-8s8 4 8 8"/>
+                    </svg>
+                    <span>Agent</span>
+                </button>
+                <button class="type-btn" data-type="workflow">
+                    <svg class="type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h6v4H4zM14 14h6v4h-6zM14 6h6v4h-6zM4 14h6v4H4z"/>
+                        <path d="M10 8h4M16 12v-2M8 12v2"/>
+                    </svg>
+                    <span>Workflow</span>
+                </button>
+                <button class="type-btn" data-type="skill">
+                    <svg class="type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l3 6 6.5 1-4.5 4.5 1 6.5L12 17l-6 3 1-6.5L2.5 9l6.5-1z"/>
+                    </svg>
+                    <span>Skill</span>
+                </button>
+            </div>
+
+            <!-- Module selector -->
+            <div class="module-selector">
+                <label for="moduleSelect">选择模块</label>
+                <select id="moduleSelect">
+                    <option value="">-- 请先选择类型 --</option>
+                </select>
+            </div>
+
+            <!-- Input area -->
+            <div class="input-area">
+                <label for="userInput">输入内容</label>
+                <textarea
+                    id="userInput"
+                    placeholder="在此输入你的问题或内容...&#10;&#10;例如：请帮我研究一下「大模型 Agent 开发」这个主题"
+                    rows="5"
+                ></textarea>
+            </div>
+
+            <!-- Run button -->
+            <button class="run-btn" id="runBtn" disabled>
+                <svg class="run-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span>Run</span>
+            </button>
+
+            <!-- Output area -->
+            <div class="output-area" id="outputArea" style="display: none;">
+                <div class="output-header">
+                    <h3>输出结果</h3>
+                    <button class="copy-btn" id="copyBtn" title="复制结果">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2"/>
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                        </svg>
+                    </button>
+                </div>
+                <pre id="outputContent"></pre>
+            </div>
+
+            <!-- Loading indicator -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <span>正在运行...</span>
+            </div>
+
+            <!-- Error display -->
+            <div class="error-box" id="errorBox" style="display: none;"></div>
+        </main>
+
+        <!-- Footer info -->
+        <footer class="footer">
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">API 地址</span>
+                    <a href="/" target="_blank" class="info-link">http://127.0.0.1:8000</a>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Swagger 文档</span>
+                    <a href="/docs" target="_blank" class="info-link">/docs</a>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">模式</span>
+                    <span id="modeIndicator" class="info-value">Mock</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

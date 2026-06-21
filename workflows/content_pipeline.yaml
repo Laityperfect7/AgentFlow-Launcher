@@ -1,0 +1,118 @@
+# =============================================================================
+# Content Pipeline Workflow
+# =============================================================================
+# A multi-step workflow that takes a topic through a content creation pipeline:
+#   1. Collect requirements
+#   2. Draft a plan
+#   3. Generate content
+#   4. Review the output
+#   5. Export the final result
+#
+# Usage:
+#   python scripts/run_demo.py
+#   curl -X POST http://127.0.0.1:8000/api/workflows/content_pipeline/run \
+#        -H "Content-Type: application/json" \
+#        -d '{"input": "AI Agent Development Guide"}'
+# =============================================================================
+
+name: content_pipeline
+description: >
+  A 5-step content creation pipeline that guides a topic from requirements
+  gathering through planning, generation, review, and export.
+
+model_provider: mock
+model_name: mock-model
+
+steps:
+  - name: collect_requirements
+    description: Gather and clarify user requirements for the content
+    prompt_template: >
+      You are a requirements analyst. The user wants content about:
+      "{user_input}"
+
+      Please clarify and list the key requirements for this content:
+      1. Target audience
+      2. Content format
+      3. Key topics to cover
+      4. Tone and style
+      5. Desired length
+
+      Output your analysis as structured text.
+    input_variables:
+      - user_input
+    output_key: requirements
+
+  - name: draft_plan
+    description: Create a content outline based on requirements
+    prompt_template: >
+      You are a content planner. Based on the following requirements:
+
+      {requirements}
+
+      Create a detailed content outline with:
+      - Title suggestions (3 options)
+      - Section headings (at least 5 sections)
+      - Key points under each section
+      - Suggested examples or case studies
+
+      Output as structured text.
+    input_variables:
+      - requirements
+    output_key: plan
+
+  - name: generate_content
+    description: Generate the full content based on the plan
+    prompt_template: >
+      You are a professional content writer. Using the plan below:
+
+      {plan}
+
+      Write the full content. Be engaging, informative, and practical.
+      Include concrete examples where applicable.
+
+      Original topic: {user_input}
+    input_variables:
+      - plan
+      - user_input
+    output_key: content
+
+  - name: review_output
+    description: Review and quality-check the generated content
+    prompt_template: >
+      You are a content reviewer. Review the following content:
+
+      {content}
+
+      Check for:
+      1. Accuracy and factual correctness
+      2. Clarity and readability
+      3. Completeness of coverage
+      4. Tone and style consistency
+      5. Grammar and spelling
+
+      Provide a review summary and suggest specific improvements.
+    input_variables:
+      - content
+    output_key: review
+
+  - name: export_result
+    description: Format and export the final deliverable
+    prompt_template: >
+      You are a content formatter. Take the original content and review,
+      and produce the final markdown-formatted deliverable.
+
+      Original content:
+      {content}
+
+      Review feedback:
+      {review}
+
+      Incorporate the review feedback and format as clean markdown.
+      Include a title, metadata header (date, topic, workflow), and
+      the polished content.
+    input_variables:
+      - content
+      - review
+    output_key: final_output
+
+max_steps: 20

@@ -1,0 +1,52 @@
+# =============================================================================
+# Text Summarizer Skill
+# =============================================================================
+# Summarizes long text into concise, structured summaries.
+#
+# Usage:
+#   curl -X POST http://127.0.0.1:8000/api/skills/text_summarizer/run \
+#        -H "Content-Type: application/json" \
+#        -d '{"input": "Long text to summarize..."}'
+# =============================================================================
+
+name: text_summarizer
+description: >
+  Summarize long-form text into a concise, structured summary with
+  key takeaways and word count statistics.
+
+category: text_processing
+model_provider: mock
+model_name: mock-model
+
+input_fields:
+  - name: input
+    type: string
+    description: The text content to summarize
+  - name: max_length
+    type: integer
+    description: Maximum length of the summary in words (optional)
+
+output_format:
+  summary: string
+  key_takeaways: list
+  word_count_original: integer
+  word_count_summary: integer
+  compression_ratio: string
+
+prompt_template: >
+  You are an expert text summarizer. Summarize the following text into
+  a concise yet comprehensive summary. Output must be in valid JSON format
+  with these keys:
+  - summary: The main summary text
+  - key_takeaways: A list of 3-5 key points
+  - word_count_original: Estimated original word count
+  - word_count_summary: Summary word count
+  - compression_ratio: The compression ratio as a string (e.g., "5.2x")
+
+  Text to summarize:
+  {input}
+
+examples:
+  - input: "Artificial intelligence has transformed many industries..."
+    output: >
+      {"summary": "...", "key_takeaways": ["..."], "word_count_original": 500, "word_count_summary": 80, "compression_ratio": "6.25x"}
