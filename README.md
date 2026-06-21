@@ -2,15 +2,15 @@
   <img src="docs/images/banner.png" alt="AgentFlow-Launcher Banner" width="100%">
 </p>
 
-<h1 align="center">AgentFlow-Launcher</h1>
+<h1 align="center">🚀 AgentFlow-Launcher</h1>
 
 <p align="center">
-  <strong>大模型 Agent / Workflow / Skill 一体化构建与部署平台</strong>
+  <strong>Build &amp; Deploy LLM Agents, Workflows, and Skills — from Config to Cloud in Minutes</strong>
 </p>
 
 <p align="center">
-  用配置文件快速构建 Agent、Workflow、Skill<br>
-  一键部署到 Web API、网页控制台和本地桌面快捷方式
+  YAML-driven Agent, Workflow &amp; Skill builder with multi-provider LLM support<br>
+  FastAPI REST API • Web Console • Desktop Launcher • One-click Deploy
 </p>
 
 <p align="center">
